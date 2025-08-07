@@ -1,7 +1,9 @@
-# backend_produits/models.py
-
 from sqlalchemy import Column, Integer, String, Float
-from .database import Base # Use relative import for database as well
+from sqlalchemy.ext.declarative import declarative_base
+
+# L'importation a été corrigée pour être directe,
+# en s'assurant que le fichier 'database.py' est au même niveau
+from database import Base
 
 class Product(Base):
     __tablename__ = "products"

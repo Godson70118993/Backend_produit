@@ -6,23 +6,24 @@ from sqlalchemy.orm import Session
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
-# These imports are now correct because 'backend_produits' is treated as a package
-from . import crud as crud
-from . import models as models
-from . import schemas as schemas
-from backend_produits.database import SessionLocal, engine
+# Imports corrigés pour un déploiement sur Render
+# Assurez-vous que crud.py, models.py, schemas.py et database.py sont au même niveau que main.py
+import crud as crud
+import models as models
+import schemas as schemas
+from database import SessionLocal, engine
 
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Application de gestion des produits")
 
-# Add CORS middleware BEFORE defining routes
-app.add_middleware( 
+# Ajoutez le middleware CORS AVANT de définir les routes
+app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:3000",               # Pour le développement local React
-        "http://127.0.0.1:3000",              # Alternative localhost
-        "https://d8fa0eab8719.ngrok-free.app" # Si votre React est aussi sur ngrok (optionnel)
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "https://d8fa0eab8719.ngrok-free.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -33,7 +34,7 @@ app.add_middleware(
 def read_root():
     return {"message": "Bienvenue dans l'application de gestion des produits!"}
 
-# Dependency
+# Dépendance
 def get_db():
     db = SessionLocal()
     try:

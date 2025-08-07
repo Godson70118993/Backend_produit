@@ -1,9 +1,9 @@
-# backend_produits/crud.py
-
 from sqlalchemy.orm import Session
 
-# CORRECT: Relative imports for modules within the same package
-from . import models as models, schemas
+# CORRIGÉ : Les importations sont maintenant directes,
+# ce qui fonctionne sans que le dossier soit un paquet Python
+import models as models
+import schemas as schemas
 
 
 def get_product(db: Session, product_id: int):

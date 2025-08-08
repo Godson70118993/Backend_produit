@@ -21,14 +21,16 @@ app = FastAPI(title="Application de gestion des produits")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:3000",
+        "http://localhost:3000",          
         "http://127.0.0.1:3000",
-        "https://d8fa0eab8719.ngrok-free.app"
+        "https://frontend-produit.vercel.app/",
+        "https://backend-produit-6.onrender.com"
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 @app.get("/")
 def read_root():

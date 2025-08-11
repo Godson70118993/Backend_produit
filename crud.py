@@ -1,10 +1,6 @@
 from sqlalchemy.orm import Session
-
-# CORRIGÉ : Les importations sont maintenant directes,
-# ce qui fonctionne sans que le dossier soit un paquet Python
-import models as models
-import schemas as schemas
-
+import models
+import schemas
 
 def get_product(db: Session, product_id: int):
     return db.query(models.Product).filter(models.Product.id == product_id).first()
@@ -16,7 +12,8 @@ def create_product(db: Session, product: schemas.ProductCreate):
     db_product = models.Product(
         name=product.name,
         description=product.description,
-        price=product.price
+        price=product.price,
+        image=product.image  # ✅ Ajout de l'image
     )
     db.add(db_product)
     db.commit()
@@ -29,6 +26,7 @@ def update_product(db: Session, product_id: int, product: schemas.ProductCreate)
         db_product.name = product.name
         db_product.description = product.description
         db_product.price = product.price
+        db_product.image = product.image  # ✅ Ajout de la mise à jour de l'image
         db.commit()
         db.refresh(db_product)
     return db_product

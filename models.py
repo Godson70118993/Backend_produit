@@ -1,14 +1,13 @@
-from sqlalchemy import Column, Integer, String, Float
-from sqlalchemy.ext.declarative import declarative_base
+# backend_produits/models.py
 
-# L'importation a été corrigée pour être directe,
-# en s'assurant que le fichier 'database.py' est au même niveau
+from sqlalchemy import Column, Integer, String, Float, Text
 from database import Base
 
 class Product(Base):
     __tablename__ = "products"
-
+    
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-    description = Column(String, index=True)
-    price = Column(Float)
+    name = Column(String(255), nullable=False, index=True)
+    description = Column(Text, nullable=True)
+    price = Column(Float, nullable=False)
+    image = Column(String(500), nullable=True)  # URL de l'image
